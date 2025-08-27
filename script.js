@@ -1,10 +1,11 @@
 const sounds = [
-  "harmonica1.mp3",
-  "harmonica2.mp3",
-  "harmonica3.mp3",
-  "harmonica4.mp3",
-  "harmonica5.mp3",
-  "harmonica6.mp3"
+  "h1.mp3",
+  "h2.mp3",
+  "h3.mp3",
+  "h4.mp3",
+  "h5.mp3",
+  "h6.mp3",
+  "h7.mp3"
 ];
 
 const buttons = document.querySelectorAll(".btn");
@@ -16,8 +17,15 @@ buttons.forEach((button, index) => {
     if (audio) {
       audio.pause();
     }
-    audio = new Audio(`sounds/${sounds[index]}`);
-    audio.play();
+
+    try {
+      audio = new Audio(`sounds/${sounds[index]}`);
+      audio.play().catch(err => {
+        console.warn("Audio playback failed:", err);
+      });
+    } catch (err) {
+      console.warn("Error creating Audio object:", err);
+    }
   });
 });
 
