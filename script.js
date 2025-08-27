@@ -10,29 +10,18 @@ const sounds = [
 
 const buttons = document.querySelectorAll(".btn");
 const stopButton = document.querySelector(".stop");
-let audio = null;
+const player = document.getElementById("player");
 
 buttons.forEach((button, index) => {
   button.addEventListener("click", () => {
-    if (audio) {
-      audio.pause();
-    }
-
-    try {
-      audio = new Audio(`sounds/${sounds[index]}`);
-      audio.play().catch(err => {
-        console.warn("Audio playback failed:", err);
-      });
-    } catch (err) {
-      console.warn("Error creating Audio object:", err);
-    }
+    player.src = `sounds/${sounds[index]}`;
+    player.play().catch(err => console.warn(err));
   });
 });
 
 stopButton.addEventListener("click", () => {
-  if (audio) {
-    audio.pause();
-    audio.currentTime = 0;
-  }
+  player.pause();
+  player.currentTime = 0;
 });
+
 
